@@ -15,25 +15,25 @@ namespace GradeBook.GradeBooks
         {
             if (Students.Count < 5)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("You must have at least 5 students to do ranked grading.");
             }
 
             List<double> sortedGrades = Students.OrderByDescending(s => s.AverageGrade).Select(o => o.AverageGrade).ToList();
-            var averagePerc = Math.Round((double)20 / 100 * Students.Count);
+            var averagePerc = (int)Math.Ceiling(Students.Count * 0.2);
 
-            if (averageGrade <= sortedGrades[0] && averageGrade > sortedGrades[(int)averagePerc - 1])
+            if (averageGrade >= sortedGrades[averagePerc - 1])
             {
                 return 'A';
             }
-            else if (averageGrade <= sortedGrades[(int)averagePerc] && averageGrade >= sortedGrades[(int)averagePerc * 2 - 1])
+            else if (averageGrade >= sortedGrades[(averagePerc * 2) - 1])
             {
                 return 'B';
             }
-            else if (averageGrade <= sortedGrades[(int)averagePerc * 2] && averageGrade >= sortedGrades[(int)averagePerc * 3 - 1])
+            else if (averageGrade >= sortedGrades[(averagePerc * 3) - 1])
             {
                 return 'C';
             }
-            else if (averageGrade <= sortedGrades[(int)averagePerc * 3] && averageGrade >= sortedGrades[(int)averagePerc * 4 - 1])
+            else if (averageGrade >= sortedGrades[(averagePerc * 4) - 1])
             {
                 return 'D';
             }
